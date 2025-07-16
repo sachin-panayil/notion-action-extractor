@@ -2,7 +2,9 @@ name: Update Master Action List
 
 on:
     schedule:
-        - cron: '0 0 * * *' # Runs every day at 00:00 UTC
+        - cron: '0 14 * * *' # Run everyday at 9am EST
+        - cron: '0 18 * * *' # Run everyday at 1pm EST
+        - cron: '0 22 * * *' # Run everyday at 5pm EST
     workflow_dispatch:
 
 jobs:
