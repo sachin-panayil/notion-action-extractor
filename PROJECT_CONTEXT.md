@@ -1,4 +1,4 @@
-# Project Context: The Story Behind Notion ACTION Items Extractor
+# Project Context: The Story Behind notion-action-extractor
 
 ## The Original Problem
 
