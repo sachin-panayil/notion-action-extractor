@@ -10,7 +10,7 @@ notion-action-extractor is supported by a dedicated team of individuals fulfilli
 
 ## Contributors
 
-Total number of contributors: <!--CONTRIBUTOR COUNT START--> <!--CONTRIBUTOR COUNT END-->
+Total number of contributors: <!--CONTRIBUTOR COUNT START--> 1 <!--CONTRIBUTOR COUNT END-->
 
 <!-- readme: contributors -start -->
 <table>
