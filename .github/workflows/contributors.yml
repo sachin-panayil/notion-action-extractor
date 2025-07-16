@@ -64,7 +64,7 @@ jobs:
           git commit -m "update contributors count to $CONTRIBUTORS" || exit 0
 
       - name: Push protected
-        uses: ad-m/github-push-action@master
+        uses: CasperWA/push-protected@v2
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: ${{ github.ref }}
+          token: ${{ secrets.PUSH_TO_PROTECTED_BRANCH }}
+          branch: main
