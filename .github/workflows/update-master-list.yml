@@ -1,0 +1,28 @@
+name: Update Master Action List
+
+on:
+    schedule:
+        - cron: '0 0 * * *' # Runs every day at 00:00 UTC
+    workflow_dispatch:
+
+jobs:
+    update-master-list:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout repository 
+              uses: actions/checkout@v4
+
+            - name: Set up Python
+              uses: actions/setup-python@v5
+              with:
+                python-version: 3.13
+
+            - name: Install dependencies
+              run: pip install -r requirments.txt
+
+            - name: Run scripts
+              env: 
+                NOTION_API_KEY: ${{ secrets.NOTION_API_KEY }}
+                KANBAN_DB_ID: ${{ secrets.KANBAN_DB_ID }}
+                ACTION_ITEMS_DB_ID: ${{ secrets.ACTION_ITEMS_DB_ID }}
+              run: python3 main.py
