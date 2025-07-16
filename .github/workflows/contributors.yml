@@ -66,5 +66,5 @@ jobs:
       - name: Push protected
         uses: CasperWA/push-protected@v2
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.PUSH_TO_PROTECTED_BRANCH }}
           branch: main
