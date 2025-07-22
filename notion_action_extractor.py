@@ -1,16 +1,8 @@
 import re
 import asyncio
-import logging
 from notion_client import AsyncClient
 from datetime import datetime, timezone
 import dateutil.parser
-
-# Configure logging
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(levelname)s - %(message)s'
-)
-logger = logging.getLogger(__name__)
 
 # Property names used in Notion databases
 NOTES_PROPERTY = "Notes"
@@ -91,7 +83,8 @@ class NotionActionExtractor:
             if cleaned: 
                 cleaned_items.append(cleaned)
         
-        logger.debug(f"Extracted {len(cleaned_items)} action items from text")
+        if cleaned_items:
+            print(f"Extracted {len(cleaned_items)} action items")
         return cleaned_items
     
     # Notion API Methods 
@@ -110,11 +103,11 @@ class NotionActionExtractor:
                     if item.get('type') == TEXT_TYPE:
                         full_text += item.get(TEXT_TYPE, {}).get('content', '')
                 
-                logger.debug(f"Retrieved notes content for page {page_id}")
+                print(f"Retrieved notes for page: {page_id}")
                 return full_text
             
         except Exception as e:
-            logger.error(f"Error getting notes content for page {page_id}: {e}")
+            print(f"ERROR: {e}")
         
         return ""
     
@@ -143,11 +136,11 @@ class NotionActionExtractor:
                     }
                 }
             )
-            logger.info(f"Created action item: {action_text}")
+            print(f"Created action item: {action_text}")
             return new_page
             
         except Exception as e:
-            logger.error(f"Error creating action item '{action_text}': {e}")
+            print(f"ERROR: {e}")
             return None
     
     async def get_existing_action_items(self, source_page_id):
@@ -168,11 +161,12 @@ class NotionActionExtractor:
                     title = title_prop[TITLE_TYPE][0][TEXT_TYPE]['content']
                     existing_items.append(title)
             
-            logger.debug(f"Found {len(existing_items)} existing action items for page {source_page_id}")
+            if existing_items:
+                print(f"Found {len(existing_items)} existing action items")
             return existing_items
             
         except Exception as e:
-            logger.error(f"Error getting existing action items for page {source_page_id}: {e}")
+            print(f"ERROR: {e}")
             return []
     
     # Status Management Methods
@@ -188,9 +182,9 @@ class NotionActionExtractor:
                 }
             )
 
-            logger.debug(f"Updated last processed time to {utc_now} for page {page_id}")
+            print(f"Updated last processed time")
         except Exception as e:
-            logger.error(f"Error marking page {page_id} as processed: {e}")
+            print(f"ERROR: {e}")
     
     async def mark_action_completed(self, page_id, action_text):
         """Add ✅ indicator to completed ACTION items in kanban notes."""
@@ -199,7 +193,7 @@ class NotionActionExtractor:
 
             already_completed_pattern = COMPLETED_ACTION_PATTERN.format(re.escape(action_text))
             if re.search(already_completed_pattern, notes_content, re.IGNORECASE):
-                logger.debug(f"Action item already marked as completed: {action_text}")
+                print(f"Already completed: {action_text} \n")
                 return  
             
             if notes_content and action_text in notes_content:
@@ -220,10 +214,10 @@ class NotionActionExtractor:
                         }
                     }
                 )
-                logger.info(f"Marked action completed: {action_text}")
+                print(f"Marked action completed: {action_text}")
                 
         except Exception as e:
-            logger.error(f"Error marking action as completed '{action_text}': {e}")
+            print(f"ERROR: {e}")
     
     # Main Processing Methods
     async def process_single_page(self, page):
@@ -251,8 +245,7 @@ class NotionActionExtractor:
         )
         
         if should_process:
-            logger.info(f"Processing page: {page_title}")
-            logger.debug(f"Last Edited: {last_edited}, Last Processed: {last_processed}")
+            print(f"\nProcessing page: {page_title}")
             
             notes_content = await self.get_notes_content(page_id)
             
@@ -260,7 +253,7 @@ class NotionActionExtractor:
                 action_items = self.extract_action_items(notes_content)
                 
                 if action_items:
-                    logger.info(f"Found {len(action_items)} ACTION items in {page_title}")
+                    print(f"Found {len(action_items)} ACTION items")
                     
                     existing_items = await self.get_existing_action_items(page_id)
                     
@@ -269,16 +262,16 @@ class NotionActionExtractor:
                         if action_text not in existing_items:
                             create_tasks.append(self.create_action_item(action_text, page_id))
                         else:
-                            logger.debug(f"Skipping duplicate: {action_text}")
+                            print(f"Skipping duplicate: {action_text}")
                     
                     if create_tasks:
                         await asyncio.gather(*create_tasks)
                 else:
-                    logger.debug(f"No ACTION items found in notes for {page_title}")
+                    pass  # No ACTION items found
 
                 await self.mark_as_processed(page_id)
         else:
-            logger.debug(f"Skipping page {page_title} since no updates since last processing)")
+            print(f"Skipping {page_title} (no updates)")
     
     async def process_kanban_updates(self):
         """Check for kanban items that need ACTION item extraction."""
@@ -291,13 +284,13 @@ class NotionActionExtractor:
                 }
             )
             
-            logger.info(f"Found {len(results['results'])} pages with ACTION items to process")
+            print(f"\nFound {len(results['results'])} pages with ACTION items to process")
             
             tasks = [self.process_single_page(page) for page in results['results']]
             await asyncio.gather(*tasks)
                     
         except Exception as e:
-            logger.error(f"Error processing kanban updates: {e}")
+            print(f"ERROR: {e}")
     
     async def monitor_completion_updates(self):
         """Check for completed action items and update original kanban notes."""
@@ -310,19 +303,16 @@ class NotionActionExtractor:
                 }
             )
             
-            logger.info(f"Found {len(results['results'])} completed action items to process")
+            print(f"\nFound {len(results['results'])} completed action items to process")
             
-            tasks = []
             for action_item in results['results']:
                 source_relation = action_item['properties'].get(SOURCE_CARD_PROPERTY, {}).get(RELATION_TYPE, [])
                 if source_relation:
                     source_page_id = source_relation[0]['id']
                     action_text = action_item['properties'][ACTION_ITEM_PROPERTY][TITLE_TYPE][0][TEXT_TYPE]['content']
                     
-                    tasks.append(self.mark_action_completed(source_page_id, action_text))
-            
-            if tasks:
-                await asyncio.gather(*tasks)
-                    
+                    await self.mark_action_completed(source_page_id, action_text)
+                    await asyncio.sleep(0.5)  # Half second delay between updates
+                        
         except Exception as e:
-            logger.error(f"Error processing completion updates: {e}")
+            print(f"ERROR: {e}")
