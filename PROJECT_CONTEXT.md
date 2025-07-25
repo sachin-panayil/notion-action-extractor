@@ -6,20 +6,7 @@ I use a Notion kanban board to track my projects, and I got into the habit of wr
 
 My typical workflow looked like this - I'd update cards with notes like:
 
-```
-11/4
-- Created a PR
-- Waiting on approval from owner
 
-11/18
-- Fixed linting
-- Still waiting on approval
-
-12/17
-- Reached out to a maintainer but no response
-ACTION: Reach out to another maintainer
-ACTION: Schedule follow-up meeting with team
-```
 
 This worked well when I had a few projects, but as I took on more work, the visual clutter became overwhelming. I'd have dozens of kanban cards, each with their own ACTION items scattered throughout the notes, and it became nearly impossible to get a clear picture of what I actually needed to do.
 

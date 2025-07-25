@@ -61,11 +61,15 @@ A list of core team members responsible for the code and documentation in this r
 - `Last Processed` (Date) - tracks processing timestamps
 - `Last Edited Time` (Last Edited Time) - automatic edit tracking
 
+Alternatively, you could use this [Kanban Board Template](https://ink-galley-dfe.notion.site/Kanban-Board-23b02ceb6f8a807894fff52104fbb99b?source=copy_link)
+
 **Master Action Items Database:**
 - `Action Item` (Title) - the action item text
 - `Status` (Checkbox) - completion status
 - `Source Card` (Relation) - links back to kanban card
 - `Date Added` (Created Time) - creation timestamp
+
+Alternatively, you could use this [Action Items List Tempalte](https://ink-galley-dfe.notion.site/23b02ceb6f8a805dbb7ee61672b4442d?v=23b02ceb6f8a81d89caa000c48a0df2c&source=copy_link)
 
 ## Contributing
 Thank you for considering contributing to this open source project! For more information about our contribution guidelines, see [CONTRIBUTING.md](CONTRIBUTING.md).
