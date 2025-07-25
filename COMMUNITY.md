@@ -6,7 +6,7 @@ notion-action-extractor is supported by a dedicated team of individuals fulfilli
 
 | Role   | Name    | Affiliation    |
 | :----- | :------ | :------------- |
-| {Admin} | {Sachin Panayil} | {Personal} |
+| Admin | Sachin Panayil | Personal |
 
 ## Contributors
 
