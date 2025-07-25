@@ -6,6 +6,7 @@ I use a Notion kanban board to track my projects, and I got into the habit of wr
 
 My typical workflow looked like this - I'd update cards with notes like:
 
+![Screen+Recording+2025-07-25+at+10 21 44 AM](https://github.com/user-attachments/assets/04454107-1f46-4ec0-8e80-74196476af12)
 
 
 This worked well when I had a few projects, but as I took on more work, the visual clutter became overwhelming. I'd have dozens of kanban cards, each with their own ACTION items scattered throughout the notes, and it became nearly impossible to get a clear picture of what I actually needed to do.
@@ -49,6 +50,11 @@ This is where all your extracted ACTION items will live:
 - **Date Added** (Created Time) - when the action was extracted
 
 The relation between these databases is key - it's what lets you see which project each action item came from and enables the completion sync back to your original notes.
+
+You now have an Action List that takes all your Action Items and puts them in a manageable list that is **sortable** and **filterable**!
+
+<img width="926" height="361" alt="Screenshot 2025-07-25 at 10 25 19 AM" src="https://github.com/user-attachments/assets/5dc1fca5-be80-40c5-b3bc-6f3aa61ebe21" />
+
 
 ## Running It Automatically
 
