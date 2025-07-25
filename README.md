@@ -8,7 +8,7 @@ This project solves the common problem of ACTION items getting lost or forgotten
 
 The Notion ACTION Items Extractor automatically finds ACTION items in your kanban card notes, creates individual trackable entries in a Master Action Items database, and syncs completion status back to the original notes with visual indicators.
 
-**📖 For the complete story behind this project, detailed problem analysis, and comprehensive Notion setup guidance, see [PROJECT_CONTEXT.md](PROJECT_CONTEXT.md)**
+**⚠️ For the complete story of the projects origin, how and why it works, and comprehensive Notion setup guidance, I highly recommend reading the [PROJECT_CONTEXT.md](PROJECT_CONTEXT.md) for more context! ⚠️**
 
 ### Project Mission
 Streamline action item management in Notion workspaces by automating the extraction, tracking, and completion workflow for ACTION items embedded in project notes.
