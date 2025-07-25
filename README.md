@@ -75,8 +75,8 @@ Alternatively, you could use this [Action Items List Tempalte](https://ink-galle
 Thank you for considering contributing to this open source project! For more information about our contribution guidelines, see [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## Feedback
-If you have ideas for improvements or encounter issues, please file an **issue on our GitHub repository**.
+If you have ideas for improvements or encounter issues, please file an **issue on the GitHub repository**.
 
 ## Policies
 
-This project follows standard open source practices and government guidelines for code sharing and collaboration.
+This project follows standard open source practices for code sharing and collaboration.
